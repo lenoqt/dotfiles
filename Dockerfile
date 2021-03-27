@@ -1,6 +1,6 @@
 FROM python:3.9-alpine
 
-RUN apt add --no-cache \
+RUN apk add  \
   autoconf \
   automake \
   build-base \
@@ -11,19 +11,6 @@ RUN apt add --no-cache \
   git \
   libtool \
   pkgconf \
-  unzip
-
-RUN cd ~ \
-  sudo rm -r neovim \
-  git clone https://github.com/neovim/neovim \
-  cd neovim \
-  make CMAKE_BUILD_TYPE=Release install \
-  cd ~ \
-  sudo rm -r neovim \
-  bash <(curl -s https://raw.githubusercontent.com/ChristianChiarulli/nvim/master/utils/installer/install.sh)
-
-
-RUN apk add --nocache \
   bash \
   build-base \
   curl \
@@ -38,12 +25,25 @@ RUN apk add --nocache \
   shadow \
   su-exec \
   unzip \
-  yarn
+  yarn \
+  neovim \
+  zsh
+
+RUN apk update
+
+RUN cd ~ \
+  sudo rm -r neovim \
+  git clone https://github.com/neovim/neovim \
+  cd neovim \
+  make CMAKE_BUILD_TYPE=Release install \
+  cd ~ \
+  sudo rm -r neovim \
+  bash curl -s https://raw.githubusercontent.com/ChristianChiarulli/nvim/master/utils/installer/install.sh
 
 RUN curl https://bootstrap.pypa.io/get-pip.py -o "/get-pip.py" \
-  python3 "/get-pip.py" \
-  rm -rf "/get-pip.py"
+  && python3 "/get-pip.py" \
+  && rm -rf "/get-pip.py"
 
-RUN su-exec neovim:neovim nvim --headless +PlugInstall +qa
+RUN nvim --headless +PlugInstall +qa
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 CMD ["python3"]
