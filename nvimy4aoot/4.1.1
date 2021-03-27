@@ -1,4 +1,4 @@
-FROM python:3.9-alpine
+FROM alpine:latest as build
 
 RUN apt add --no-cache \
   autoconf \
@@ -22,6 +22,7 @@ RUN cd ~ \
   sudo rm -r neovim \
   bash <(curl -s https://raw.githubusercontent.com/ChristianChiarulli/nvim/master/utils/installer/install.sh)
 
+FROM alpine:latest
 
 RUN apk add --nocache \
   bash \
