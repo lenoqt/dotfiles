@@ -26,24 +26,29 @@ RUN apk add  \
   su-exec \
   unzip \
   yarn \
-  neovim \
-  zsh
+  zsh \
 
-RUN apk update
+RUN apk add \
+  neovim=0.5.0
 
-RUN cd ~ \
-  sudo rm -r neovim \
-  git clone https://github.com/neovim/neovim \
-  cd neovim \
-  make CMAKE_BUILD_TYPE=Release install \
-  cd ~ \
-  sudo rm -r neovim \
-  bash curl -s https://raw.githubusercontent.com/ChristianChiarulli/nvim/master/utils/installer/install.sh
+RUN apk update && apk cache clean
+
+ADD repo-key /
+RUN \
+  chmod 600 /repo-key && \
+  echo "IdentityFile /repo-key" >> /etc/ssh/ssh_config && \
+  echo -e "StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
+RUN git config --global user.email "gustavo.barrios@gmail.com"
+RUN git config --global user.name "Gustavo Barrios"
 
 RUN curl https://bootstrap.pypa.io/get-pip.py -o "/get-pip.py" \
   && python3 "/get-pip.py" \
   && rm -rf "/get-pip.py"
 
+RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+RUN cd ~ && touch .zsh_history
 RUN nvim --headless +PlugInstall +qa
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ChristianChiarulli/nvim/master/utils/installer/install.sh)"
 CMD ["python3"]
