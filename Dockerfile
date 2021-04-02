@@ -59,6 +59,7 @@ RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/p
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 RUN cd ~ && touch .zsh_history
 RUN mkdir /root/.config/nvim
-RUN cd ~/.config/nvim && curl -LJO https://raw.githubusercontent.com/beauwilliams/Dotfiles/master/Vim/nvim-pre-lua/init.vim && curl -LJO https://raw.githubusercontent.com/beauwilliams/Dotfiles/master/Vim/nvim-pre-lua/coc-settings.json;
+RUN cd ~/ && curl -LJO https://raw.githubusercontent.com/lenoqt/dotfiles/main/.zshrc
+RUN cd ~/.config/nvim && curl -LJO https://raw.githubusercontent.com/lenoqt/dotfiles/main/.config/nvim/init.vim && curl -LJO https://raw.githubusercontent.com/lenoqt/dotfiles/main/.config/nvim/coc-settings.json;
 RUN nvim --headless +PlugInstall +qa
 CMD ["python"]
