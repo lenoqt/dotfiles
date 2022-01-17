@@ -1,0 +1,7 @@
+api.zotero.org:HSTS	2	18883	1663027450062,1,1,2
+arxiv.org:HSTS	0	18877	1662546202572,1,0,2
+www.zotero.org:HSTS	49	18926	1666778517596,1,1,2
+repo.zotero.org:HSTS	17	18925	1666681428857,1,1,2
+cdn.jsdelivr.net:HSTS	0	18877	1662544837576,1,1,2
+arxiv.paperswithcode.com:HSTS	0	18877	1641378206018,1,1,2
+arxiv-org.atlassian.net:HSTS	0	18877	1946370205127,1,1,2

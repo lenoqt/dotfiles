@@ -1,0 +1,7 @@
+1639470464
+conandata.yml: 30857233ca58c1873361ba76dfeddc00
+conanfile.py: 2c7eafe76232e38f8a51455bf81a9045
+export_source/CMakeLists.txt: da40994ddb6bf2900b82207789f0078d
+export_source/patches/gtest-1.10.0-override.patch: 4462cffc6afdef632f2485d937987a2a
+export_source/patches/gtest-1.10.0.patch: 86c010f0c23e33020793f360a35f4514
+export_source/patches/gtest-1.8.1.patch: 40cf99262c7477ee5b1abac19b2c59b6
